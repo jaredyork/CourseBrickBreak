@@ -45,12 +45,15 @@ class SceneMain extends Phaser.Scene {
                 });
             }
             else {
+                var pointValue = (i + 1) * 3;
+
                 this.rowQueue.push({
+                    pointValue: pointValue,
                     soundIndex: i,
                     canRemove: false
                 });
             }
-        }        
+        }
 	}
 
 	generateRows(amount) {
@@ -70,12 +73,10 @@ class SceneMain extends Phaser.Scene {
                         color.g = Math.round(Math.sin(freq * (this.amountRowsGenerated + i * 0.5) + 2) * 127 + 128);
                         color.b = Math.round(Math.sin(freq * (this.amountRowsGenerated + i * 0.5) + 3) * 127 + 128);
 
-                        var pointValue = Math.round(i * 0.25);
-
                         var brick = new Brick(this, 32 + (x * 32), 0, color);
                         brick.x += brick.displayWidth * 0.5;
                         brick.y += brick.displayHeight * 0.5;
-                        brick.setPointValue(pointValue);
+                        brick.setPointValue(this.rowQueue[0].pointValue);
                         brick.setSoundIndex(this.rowQueue[0].soundIndex);
                         this.bricks.add(brick);
                     }
